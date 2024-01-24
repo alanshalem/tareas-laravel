@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TodosController;
+use App\Http\Controllers\CategoriesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +19,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/todos', function () {
-    return view('todos.index'); // todos es la carpeta, index es el archivo
-});
+// Obtener todas las tareas
+Route::get('/tareas', [TodosController::class, 'index'])->name('todos');
+// Crear una tarea
+Route::post('/tareas', [TodosController::class, 'store'])->name('todos');
+// Obtener una tarea
+Route::get('/tareas/{id}', [TodosController::class, 'show'])->name('todos-show');
+// Actualizar una tarea
+Route::patch('/tareas/{id}', [TodosController::class, 'update'])->name('todos-update');
+// Eliminar una tarea
+Route::delete('/tareas/{id}', [TodosController::class, 'destroy'])->name('todos-destroy');
+
+Route::resource('categories', CategoriesController::class);
