@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Todo;
 use App\Models\Category;
 
 class CategoriesController extends Controller
@@ -84,7 +85,9 @@ class CategoriesController extends Controller
     public function destroy(string $id)
     {
         $category = Category::find($id);
+
         $category->delete();
+        
         return redirect()->route('categories.index')->with('success', 'Categoría eliminada correctamente');
     }
 }
